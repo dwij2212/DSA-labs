@@ -3,6 +3,7 @@
 
 # VSCODE
 .vscode
+.zip
 
 # Object files
 *.o
