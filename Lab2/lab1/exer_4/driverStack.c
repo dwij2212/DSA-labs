@@ -23,9 +23,17 @@ int main(int argc, char *argv[])
     fclose(fileptr);
 
     // print some elements which are popped off
-    printf("%d\n", pop(head)->element);
-    printf("%d\n", pop(head)->element);
-    printf("%d\n", pop(head)->element);
-    printf("%d\n", pop(head)->element);
-    printf("%d\n", pop(head)->element);
+    struct node *temp;
+
+    temp = pop(head);
+    printf("%d\n", temp->element);
+    free(temp);
+
+    temp = pop(head);
+    printf("%d\n", temp->element);
+    free(temp);
+
+    temp = pop(head);
+    printf("%d\n", temp->element);
+    free(temp);
 }
