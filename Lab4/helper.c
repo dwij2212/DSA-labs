@@ -13,7 +13,6 @@ LinkedList *createList(int n)
     ll->size = 0;
 
     // set seed as current time
-    srand(time(0));
 
     if (ll == NULL)
     {
@@ -59,7 +58,6 @@ LinkedList *createList(int n)
 
 LinkedList *createCycle(LinkedList *ll)
 {
-    srand(time(0));
     int cycle = rand() % 2;
 
     if (cycle)
@@ -73,9 +71,12 @@ LinkedList *createCycle(LinkedList *ll)
         }
 
         (ll->tail)->next = cursor;
-        printf("Created a cycle successfulyy.\n");
+        printf(" created a cycle successfulyy.\n");
     }
-
+    else
+    {
+        printf(" No cycle created.\n");
+    }
     return ll;
 }
 

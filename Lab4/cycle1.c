@@ -6,7 +6,6 @@ int testCyclic(LinkedList *ll)
 
     if (ll->size < 2)
     {
-        printf("No cycles trivial case.\n");
         return 0;
     }
 
@@ -31,7 +30,6 @@ int testCyclic(LinkedList *ll)
         {
             if (tort->next == NULL || (hare->next == NULL) || (hare->next)->next == NULL)
             {
-                printf("No cycles.\n");
                 return 0;
             }
 

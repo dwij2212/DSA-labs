@@ -1,23 +1,47 @@
 #include "helper.h"
 #include <stdio.h>
 #include "cycle.h"
+#include <sys/time.h>
+#include <time.h>
 
 int space = 0;
 int main(int argc, char const *argv[])
 {
-    LinkedList *ll = createList(10);
-    printList(ll);
-    // printf("Space full: %d\n", space);
+    struct timeval t1, t2;
+    double elapsedTime;
+    srand(time(0));
 
-    ll = createCycle(ll);
-
-    // commented out because this can be only executed if there is no cycle
-    // emptyList(ll);
-    // printf("Space full: %d\n", space);
-    int c = testCyclic(ll);
-    if (c)
+    int size_steps = 8;
+    int list_size = 1;
+    while (size_steps--)
     {
-        printf("Cycle detected.\n");
+        LinkedList *ll = createList(list_size);
+        printf("List of size %d created.\n", list_size);
+        printf("Attempting to create a cycle -----");
+        ll = createCycle(ll);
+
+        gettimeofday(&t1, NULL);
+        int c = testCyclic(ll);
+        gettimeofday(&t2, NULL);
+
+        if (c)
+        {
+            printf("Cycle detected.\n");
+        }
+        else
+        {
+            printf("No cycle detected.\n");
+        }
+        // emptyList(ll);
+        // printf("Emptying list.\n");
+
+        elapsedTime = (t2.tv_sec - t1.tv_sec) * 1000.0;
+        elapsedTime += (t2.tv_usec - t1.tv_usec) / 1000.0;
+        printf("Total time taken for testCyclic %f ms.\n", elapsedTime);
+
+        printf("Total heap space utilized: %d\n\n\n", space);
+
+        list_size *= 10;
     }
 
     return 0;
