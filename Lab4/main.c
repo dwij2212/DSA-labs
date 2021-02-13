@@ -24,14 +24,7 @@ int main(int argc, char const *argv[])
         int c = testCyclic(ll);
         gettimeofday(&t2, NULL);
 
-        if (c)
-        {
-            printf("Cycle detected.\n");
-        }
-        else
-        {
-            printf("No cycle detected.\n");
-        }
+        // error while emptying cyclic list
         // emptyList(ll);
         // printf("Emptying list.\n");
 
@@ -41,6 +34,20 @@ int main(int argc, char const *argv[])
 
         printf("Total heap space utilized: %d\n\n\n", space);
 
+        FILE *fp = fopen("obs.csv", "a");
+
+        if (c)
+        {
+            printf("Cycle detected.\n");
+            fprintf(fp, "%d,Cycle Detected,%f,%d\n", list_size, elapsedTime, space);
+        }
+        else
+        {
+            printf("No cycle detected.\n");
+            fprintf(fp, "%d,No Cycle Detected,%f,%d\n", list_size, elapsedTime, space);
+        }
+
+        fclose(fp);
         list_size *= 10;
     }
 

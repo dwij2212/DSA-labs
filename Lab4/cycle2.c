@@ -30,3 +30,8 @@ LinkedList *reverseList(LinkedList *ll)
         printf("No cycle.\n");
     }
 }
+
+int testCyclic(LinkedList *ll)
+{
+    reverseList(ll);
+}
