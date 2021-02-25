@@ -1,3 +1,5 @@
+#ifndef BANK_H
+#define BANK_H
 #include <stdio.h>
 
 typedef struct account
@@ -12,3 +14,4 @@ typedef struct account
 
 account *readRecordsFromFile(FILE *fptr);
 void printDetails(account *bank);
+#endif
