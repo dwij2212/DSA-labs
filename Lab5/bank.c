@@ -4,6 +4,19 @@
 
 int numAccounts = 5;
 
+void shuffle(account *array, int n)
+{
+    // function to randomly shuffle the bank array
+    int i;
+    for (i = 0; i < 500; i++)
+    {
+        int j = i + rand() / (RAND_MAX / (n - i) + 1);
+        account t = array[j];
+        array[j] = array[i];
+        array[i] = t;
+    }
+}
+
 account *readRecordsFromFile(FILE *fptr)
 {
     // printf("1\n");
@@ -62,4 +75,32 @@ void printDetails(account *bank)
     {
         printf("Credit card num: %lld,  Name: %s\n", bank[i].cardNumber, bank[i].fname);
     }
+}
+
+account *readNRecordsFromFile(FILE *fptr, int num)
+{
+    account *bank = (account *)malloc(num * sizeof(account));
+    int idx = 0;
+
+    char line[100];
+    while (fscanf(fptr, "\"%[^\"]\"\n", line) != -1 && idx < num)
+    {
+        char *endptr;
+        account ac;
+
+        ac.cardNumber = strtoll(strtok(line, ","), &endptr, 10);
+        strcpy(ac.bankCode, strtok(NULL, ","));
+        strcpy(ac.expiryDate, strtok(NULL, ","));
+        strcpy(ac.fname, strtok(NULL, ","));
+        strcpy(ac.lname, strtok(NULL, ","));
+
+        bank[idx] = ac;
+        idx++;
+    }
+
+    numAccounts = idx;
+
+    shuffle(bank, numAccounts);
+
+    return bank;
 }

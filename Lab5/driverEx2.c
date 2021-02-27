@@ -12,28 +12,23 @@ int main()
     double elapsedTimeRead, elapsedTimeSort;
     srand(time(0));
 
-    int size = 10;
-    for (int i = 0; i < 5; i++)
-    {
-        // programmatically open each input file
-        char *temp = malloc(sizeof(char) * 100);
-        sprintf(temp, "%d", size);
-        FILE *fptr = fopen(temp, "r");
+    int size = 1000;
 
+    while (size <= 30000)
+    {
+        FILE *fptr = fopen("10000", "r");
         if (fptr == NULL)
         {
             printf("Error opening file\n");
+            exit(0);
         }
-
         gettimeofday(&t1, NULL);
-        account *bank = readRecordsFromFile(fptr); // create a bank array containing array of account details
+        account *bank = readNRecordsFromFile(fptr, size); // create a bank array containing array of account details
         gettimeofday(&t2, NULL);
 
         elapsedTimeRead = (t2.tv_sec - t1.tv_sec) * 1000.0;
         elapsedTimeRead += (t2.tv_usec - t1.tv_usec) / 1000.0;
         printf("Total time taken for %d inputs in reading is %f ms.\n", size, elapsedTimeRead);
-
-        // printDetails(bank);
 
         int dummy;
         int *mainPointer = &dummy;
@@ -47,12 +42,13 @@ int main()
         elapsedTimeSort += (t2.tv_usec - t1.tv_usec) / 1000.0;
         printf("Total time taken for %d inputs in sorting is %f ms.\n", size, elapsedTimeSort);
 
-        // uncomment this for small arrays to see sorted order
-        // printDetails(bank);
+        // writing out to a .csv file
+        FILE *fp = fopen("output.csv", "a");
+        fprintf(fp, "%d,%f,%d\n", size, elapsedTimeSort, stackSpace);
 
         free(bank);
-        free(temp);
+        fclose(fp);
+        size += 1000;
         fclose(fptr);
-        size *= 10;
     }
 }

@@ -1,5 +1,7 @@
 #include "ex2.h"
 
+int *insertionSortPointer;
+
 void insertInOrder(account *arr, int index)
 {
 
@@ -24,6 +26,11 @@ account *insertionSort(account *arr, int size)
     if (size > 1)
     {
         insertionSort(arr, size - 1);
+    }
+    else if (size == 1)
+    {
+        int dummy;
+        insertionSortPointer = &dummy;
     }
 
     insertInOrder(arr, size);

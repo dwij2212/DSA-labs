@@ -14,4 +14,5 @@ typedef struct account
 
 account *readRecordsFromFile(FILE *fptr);
 void printDetails(account *bank);
+account *readNRecordsFromFile(FILE *fptr, int num);
 #endif
